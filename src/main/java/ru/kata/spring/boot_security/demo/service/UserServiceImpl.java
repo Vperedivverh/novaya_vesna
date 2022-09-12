@@ -27,7 +27,8 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-@Transactional
+
+    @Transactional
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -47,7 +48,8 @@ public class UserServiceImpl implements UserService {
         user1.setUsername(user.getUsername());
         userRepository.saveAndFlush(user1);
     }
-@Transactional
+
+    @Transactional
     @Override
     public User getUser(int id) {
         return userRepository.getById(id);
@@ -67,7 +69,8 @@ public class UserServiceImpl implements UserService {
         user1.setUsername(user.getUsername());
         return userRepository.saveAndFlush(user);
     }
-@Transactional
+
+    @Transactional
     @Override
     public User getByUsername(String email) {
         return userRepository.getUserByUsername(email);
