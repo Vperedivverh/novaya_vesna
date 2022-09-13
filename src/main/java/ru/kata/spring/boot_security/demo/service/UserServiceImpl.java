@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -37,16 +39,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-        User user1 = new User();
-        user1.setPassword(passwordEncoder.encode(user.getPassword()));
-        user1.setName(user.getName());
-        user1.setSurname(user.getSurname());
-        user1.setAddress(user.getAddress());
-        user1.setRoles(user.getRoles());
-        user1.setFn(user.getFn());
-        user1.setId(user.getId());
-        user1.setUsername(user.getUsername());
-        userRepository.saveAndFlush(user1);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setName(user.getName());
+        user.setSurname(user.getSurname());
+        user.setAddress(user.getAddress());
+        user.setRoles(user.getRoles());
+        user.setFn(user.getFn());
+        user.setId(user.getId());
+        user.setUsername(user.getUsername());
+        userRepository.saveAndFlush(user);
     }
 
     @Transactional
@@ -58,15 +59,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User updateUser(User user) {
-        User user1 = new User();
-        user1.setPassword(passwordEncoder.encode(user.getPassword()));
-        user1.setName(user.getName());
-        user1.setSurname(user.getSurname());
-        user1.setAddress(user.getAddress());
-        user1.setRoles(user.getRoles());
-        user1.setFn(user.getFn());
-        user1.setId(user.getId());
-        user1.setUsername(user.getUsername());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setName(user.getName());
+        user.setSurname(user.getSurname());
+        user.setAddress(user.getAddress());
+        user.setRoles(user.getRoles());
+        user.setFn(user.getFn());
+        user.setId(user.getId());
+        user.setUsername(user.getUsername());
         return userRepository.saveAndFlush(user);
     }
 
@@ -83,7 +83,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.getUserByUsername(username);
         if (user == null) {
