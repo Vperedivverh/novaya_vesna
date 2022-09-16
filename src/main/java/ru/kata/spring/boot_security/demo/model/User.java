@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -105,6 +106,15 @@ public class User implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+    public Set<Role> getAllRoles() {
+        Role adminRole = new Role("ROLE_ADMIN");
+        Role userRole = new Role("ROLE_USER");
+
+        Set<Role>allRolls = new HashSet<>();
+        allRolls.add(adminRole);
+        allRolls.add(userRole);
+        return allRolls ;
     }
 
     public String getRole(Role role){

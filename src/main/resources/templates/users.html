@@ -156,10 +156,15 @@
                                 <label>Password</label>
                                 <input th:type="text" class="form-control" th:name="password"
                                        />
-                                <br>
-                                    <label>роль</label>
-                                    <input class="form-control form-control-sm" type="text"
-                                           th:field="*{user.roles}" placeholder="роль" required>
+                                <p><br>
+                                    Role</p>
+                                <select th:value="${user.getAllRoles()}" class="form-control"
+                                        th:name="roles"
+                                        name="roles" multiple size="2" >
+                                    <option th:each="role : ${user.getAllRoles()}"
+                                            th:value="${role}"
+                                            th:text="${role}">
+                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button th:type="button" class="btn btn-secondary" data-dismiss="modal">оставить всё как
@@ -193,7 +198,7 @@
                                        th:value="${user.name}" readonly/>
                                 <br>
                                 <p>Фамилия</p>
-                                <input th:type="text" class="form-control" th:name="surename"
+                                <input th:type="text" class="form-control" th:name="surname"
                                        th:value="${user.surname}" readonly/>
                                 <br>
                                 <p>адрес</p>
@@ -239,39 +244,44 @@
                           class="form-signin mx-auto font-weight-bold">
                         <p><br>
                             <label>Имя</label>
-                            <input class="form-control form-control-sm" type="text"
-                                   th:field="*{name}" placeholder="Имя" required autofocus>
+                            <input class="form-control form-control-sm" type="text" th:name="name"
+                                    placeholder="Имя" required autofocus>
                         </p>
                         <p><br>
                             <label>Фамилия</label>
-                            <input class="form-control form-control-sm" type="text"
-                                   th:field="*{surname}" placeholder="Фамилия" required autofocus>
+                            <input class="form-control form-control-sm" type="text" th:name="surname"
+                                   placeholder="Фамилия" required autofocus>
+                        </p>
                         </p>
                         <p><br>
                             <label>адрес</label>
-                            <input class="form-control form-control-sm" type="text"
-                                   th:field="*{address}" placeholder="адрес" required autofocus>
+                            <input class="form-control form-control-sm" type="text" th:name="address"
+                                    placeholder="адрес" required autofocus>
                         </p>
                         <p><br>
                             <label>телефон</label>
-                            <input class="form-control form-control-sm" type="number"
-                                   th:field="*{phoneNumber}" placeholder="телефон" required autofocus>
+                            <input class="form-control form-control-sm" type="number" th:name="phoneNumber"
+                                    placeholder="телефон" required autofocus>
                         </p>
                         <p><br>
                             <label>eMail</label>
-                            <input class="form-control form-control-sm" type="text" required
-                                   th:field="*{username}" placeholder="eMail">
+                            <input class="form-control form-control-sm" type="text" required autofocus
+                                   th:name="username" placeholder="eMail">
                         </p>
                         <p><br>
                             <label>Password</label>
-                            <input class="form-control form-control-sm" type="password"
-                                   th:field="*{password}" placeholder="Password" required>
+                            <input th:type="text" class="form-control" th:name="password"
+                                   placeholder="password"  />
                         </p>
                         <p><br>
-                            <label>роль</label>
-                            <input class="form-control form-control-sm" type="text"
-                                   th:field="*{roles}" placeholder="роль" required>
-                        </p>
+                            Role</p>
+                        <select th:value="${user.getAllRoles()}" class="form-control"
+                                th:name="roles"
+                                name="roles" multiple size="2" >
+                            <option th:each="role : ${user.getAllRoles()}"
+                                    th:value="${role}"
+                                    th:text="${role}">
+                        </select>
                         <button type="submit" class="btn btn-success">добавить нового пользователя</button>
                     </form>
                 </div>
