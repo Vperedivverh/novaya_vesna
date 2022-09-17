@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" i
+          ntegrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Offcanvas template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/editor.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+    <title>User panel</title>
+</head>
+<body>
+
+<!-- Навигация  -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link">товарищ </a>
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${user.getName()}"> </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${user.getSurname()}"> </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link">с ролью </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${user.getRole(user.getRoles())}"></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a class="nav-link text-muted" th:href="@{/logout}">Logout</a>
+        </form>
+    </div>
+</nav>
+
+<!-- Разметка  -->
+<div class="row" style="">
+    <div class="  col-md-2">
+        <ul class="nav flex-column nav-pills ">
+            <li class="nav-item">
+                <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" href="/admin">администратор</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/user">пользователь</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <br>
+        <h1>страница информации о пользователе</h1>
+        <div style="height: 68px;">
+            <br>
+            <h5>информация о пользователе</h5></div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>адрес</th>
+                <th>номер телефона</th>
+                <th>eMail</th>
+                <th>роль</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <tr th:each="user : ${user}">
+                <td><a th:href="@{/admin/{id}/edit(id=${user.getId()})}" th:utext="${user.getId()}">Id</a></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.address}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.roles}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

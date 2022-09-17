@@ -37,8 +37,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User getUser(int id) {
-        return userRepository.getById(id);
-    }
+        return userRepository.findById((Integer) id).get();
+    }//вот изза этого я потерял много нервов
+    //читать тут https://stackoverflow.com/questions/52656517/no-serializer-found-for-class-org-hibernate-proxy-pojo-bytebuddy-bytebuddyinterc
 
     @Override
     @Transactional
@@ -48,9 +49,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByUsername(String username) {
+        return userRepository.getUserByUsername(username);
+    }
+
+    @Override
     @Transactional(readOnly = true)
-    public User getByUsername(String email) {
-        return userRepository.getUserByUsername(email);
+    public User findByUsername(String username) {
+        return userRepository.findUserByUsername(username);
     }
 
     @Override

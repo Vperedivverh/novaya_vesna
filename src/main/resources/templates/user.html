@@ -1,104 +1,89 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" i
-          ntegrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
-    <title>Offcanvas template for Bootstrap</title>
-    <!-- Bootstrap core CSS -->
-    <link href="../../css/editor.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="offcanvas.css" rel="stylesheet">
-    <title>User panel</title>
+    <title>страница пользователя</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-
-<!-- Навигация  -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link">товарищ </a>
-            <li class="nav-item active">
-                <a class="nav-link" th:utext="${user.getName()}"> </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:utext="${user.getSurname()}"> </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link">с ролью </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:utext="${user.getRole(user.getRoles())}"></a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link text-muted" th:href="@{/logout}">Logout</a>
-        </form>
-    </div>
-</nav>
-
-<!-- Разметка  -->
-<div class="row" style="">
-    <div class="  col-md-2">
-        <ul class="nav flex-column nav-pills ">
-            <li class="nav-item">
-                <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" href="/admin">администратор</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/user">пользователь</a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-10">
-        <br>
-        <h1>страница информации о пользователе</h1>
-        <div style="height: 68px;">
-            <br>
-            <h5>информация о пользователе</h5></div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Имя</th>
-                <th>Фамилия</th>
-                <th>адрес</th>
-                <th>номер телефона</th>
-                <th>eMail</th>
-                <th>роль</th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <tr th:each="user : ${user}">
-                <td><a th:href="@{/admin/{id}/edit(id=${user.getId()})}" th:utext="${user.getId()}">Id</a></td>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.surname}"></td>
-                <td th:text="${user.address}"></td>
-                <td th:text="${user.phoneNumber}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.roles}"></td>
-            </tr>
-            </tbody>
-        </table>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link">товарищ </a>
+                <li class="nav-item active">
+                    <a class="nav-link" th:utext="${user.getName()}"> </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:utext="${user.getSurname()}"> </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">с    ролью </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:utext="${user.getRole(user.getRoles())}">с какой то там ролью</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a class="nav-link text-muted" th:href="@{/logout}">Logout</a>
+            </form>
+        </div>
+    </nav>
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col bg-white px-0">
+            <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active text-start" id="v-pills-user-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-user"
+                        type="button" role="tab" aria-controls="v-pills-user" aria-selected="true">пользователь
+                </button>
+            </div>
+        </div>
+        <div class="col-10 vh-100 bg-light">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
+                     aria-labelledby="v-pills-admin-tab">
+                    <div><h1 class="ps-3">карточка пользователя</h1>
+                        <div class="container-fluid">
+                            <div class="row border">
+                                <h5 class="p-2">информация о товарище</h5>
+                            </div>
+                            <div class="row border bg-white">
+                                <table class="table table-borderless table-striped">
+                                    <thead>
+                                    <tr class="border-top">
+                                        <th scope="col">Id</th>
+                                        <th scope="col">имя</th>
+                                        <th scope="col">фамилия</th>
+                                        <th scope="col">адрес</th>
+                                        <th scope="col">номер телефона</th>
+                                        <th scope="col">eMail</th>
+                                        <th scope="col">роль</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="border-top bg-light" th:object="${user}">
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.name}"></td>
+                                        <td th:text="${user.surname}"></td>
+                                        <td th:text="${user.address}"></td>
+                                        <td th:text="${user.phoneNumber}"></td>
+                                        <td th:text="${user.username}"></td>
+                                        <td th:text="${user.roles.toString.replace('ROLE_','').replace('[', '').replace(']', '')}"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
 </body>
 </html>
