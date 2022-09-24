@@ -36,10 +36,9 @@
     <div class="row">
         <div class="col bg-white px-0">
             <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active text-start" id="v-pills-user-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-user"
-                        type="button" role="tab" aria-controls="v-pills-user" aria-selected="true">пользователь
-                </button>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#v-pills-user">пользователь</a>
+                </li>
             </div>
         </div>
         <div class="col-10 vh-100 bg-light">
@@ -48,18 +47,18 @@
                      aria-labelledby="v-pills-admin-tab">
                     <div><h1 class="ps-3">карточка пользователя</h1>
                         <div class="container-fluid">
-                            <div class="row border">
+                            <div class="p-2">
                                 <h5 class="p-2">информация о товарище</h5>
                             </div>
-                            <div class="row border bg-white">
-                                <table class="table table-borderless table-striped">
+                            <div class="p-2">
+                                <table class="table table-striped bg-white">
                                     <thead>
                                     <tr class="border-top">
                                         <th scope="col">Id</th>
                                         <th scope="col">имя</th>
                                         <th scope="col">фамилия</th>
                                         <th scope="col">адрес</th>
-                                        <th scope="col">номер телефона</th>
+                                        <th scope="col">телефон</th>
                                         <th scope="col">eMail</th>
                                         <th scope="col">роль</th>
                                     </tr>

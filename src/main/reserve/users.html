@@ -155,7 +155,7 @@
                                 <br>
                                 <label>Password</label>
                                 <input th:type="text" class="form-control" th:name="password"
-                                       th:value=""/>
+                                       th:value="${user.password}"/>
                                 <p><br>
                                     Role</p>
                                 <select th:value="${user.getAllRoles()}" class="form-control"

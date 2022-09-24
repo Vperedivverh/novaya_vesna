@@ -5,7 +5,7 @@ const table = $('#fill-users');
 
 async function allUsers() {
     table.empty()
-    fetch("http://localhost:8080/admin/users")
+    fetch("/admin/users")
         .then(res => res.json())
         .then(data => {
             data.forEach(user => {
@@ -37,7 +37,7 @@ $(async function () {
 });
 
 async function newUser() {
-    await fetch("http://localhost:8080/admin/authorities")
+    await fetch("/admin/authorities")
         .then(res => res.json())
         .then(roles => {
             roles.forEach(role => {
@@ -62,7 +62,7 @@ async function newUser() {
             })
         }
         console.log(newUserRoles)
-        fetch("http://localhost:8080/admin/users", {
+        fetch("/admin/users", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ async function showDeleteModal(id) {
     form.phoneNumber.value = user.phoneNumber;
     form.username.value = user.username;
     $('#rolesDelete').empty();
-    await fetch("http://localhost:8080/admin/authorities")
+    await fetch("/admin/authorities")
         .then(res => res.json())
         .then(roles => {
             roles.forEach(role => {
@@ -122,7 +122,7 @@ async function showDeleteModal(id) {
 }
 
 async function getUser(id) {
-    let url = "http://localhost:8080/admin/users/" + id;
+    let url = "/admin/users/" + id;
     let response = await fetch(url);
     return await response.json();
 }
@@ -135,7 +135,7 @@ function deleteUser() {
     const deleteForm = document.forms["deleteFormBody"];
     deleteForm.addEventListener("submit", ev => {
         ev.preventDefault();
-        fetch("http://localhost:8080/admin/users/" + deleteForm.id.value, {
+        fetch("/admin/users/" + deleteForm.id.value, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -177,7 +177,7 @@ async function showEditModal(id) {
     form.address.value = user.address;
     form.phoneNumber.value = user.phoneNumber;
     form.username.value = user.username;
-    form.password.value = user.password;
+    // form.password.value = user.password;
 
     $("#rolesEdit").empty();
     let selectEdit = document.getElementById('rolesEdit');
@@ -221,7 +221,7 @@ function editUser() {
             })
         }
 
-        fetch("http://localhost:8080/admin/users/" + editForm.id.value, {
+        fetch("/admin/users/" + editForm.id.value, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
