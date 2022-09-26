@@ -2,23 +2,28 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class MyRestController {
+public class AdminRestController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public MyRestController(UserService userService) {
+    public AdminRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
-
+        this.roleService = roleService;
     }
 
 
@@ -40,7 +45,7 @@ public class MyRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<?> createNewUser(@RequestBody User user) {
+    public ResponseEntity<User> createNewUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -52,19 +57,23 @@ public class MyRestController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
-        userService.deleteUser(id);
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        userService.deleteUserById(id);
         return new ResponseEntity<>(("User was deleted."), HttpStatus.OK);
     }
 
     @GetMapping("/authorities")
     public ResponseEntity<List<Role>> getAllRoles() {
-        Role adminRole = new Role("ROLE_ADMIN");
-        Role userRole = new Role("ROLE_USER");
-        List<Role> newRolesArray =new ArrayList<>();
-        newRolesArray.add(adminRole);
-        newRolesArray.add(userRole);
+        List<Role> newRolesArray = roleService.getAllAvailableRoles();
         System.out.println(newRolesArray);
         return new ResponseEntity<>(newRolesArray, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ModelAndView showUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("user", userService.findByUsername(userDetails.getUsername()));
+        model.addAttribute("roles", userService.findByUsername(userDetails.getUsername()).getRoles());
+        model.addAttribute("users", userService.getAllUsers());
+        return new ModelAndView("users");
     }
 }
