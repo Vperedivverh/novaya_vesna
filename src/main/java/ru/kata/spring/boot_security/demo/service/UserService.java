@@ -21,7 +21,6 @@ public interface UserService extends UserDetailsService {
 
     public User updateUser(User user);
 
-    @Transactional(readOnly = true)
     public User findByUsername(String username);
 
     public void deleteUserById(int id);

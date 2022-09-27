@@ -107,21 +107,21 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {
         return roles;
     }
+
     public Set<Role> getAllRoles() {
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
 
-        Set<Role>allRolls = new HashSet<>();
+        Set<Role> allRolls = new HashSet<>();
         allRolls.add(adminRole);
         allRolls.add(userRole);
-        return allRolls ;
+        return allRolls;
     }
 
-    public String getRole(Role role){
-        if (role.getAuthority().equals("ROLE_ADMIN")){
+    public String getRole(Role role) {
+        if (role.getAuthority().equals("ROLE_ADMIN")) {
             return "администратор";
-        }
-        else return "пользователь";
+        } else return "пользователь";
     }
 
     public void setRoles(Set<Role> roles) {
@@ -157,6 +157,7 @@ public class User implements UserDetails {
     public String getUsername() {
         return username;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

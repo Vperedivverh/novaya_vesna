@@ -70,7 +70,7 @@ public class AdminRestController {
     }
 
     @GetMapping
-    public ModelAndView showUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public ModelAndView showPageNamedUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         model.addAttribute("user", userService.findByUsername(userDetails.getUsername()));
         model.addAttribute("roles", userService.findByUsername(userDetails.getUsername()).getRoles());
         model.addAttribute("users", userService.getAllUsers());
