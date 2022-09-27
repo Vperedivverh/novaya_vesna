@@ -17,16 +17,15 @@ public interface UserService extends UserDetailsService {
 
     public void saveUser(User user);
 
-    public User getUser(int id);
+    public User getUserById(int id);
 
     public User updateUser(User user);
 
-    public User getByUsername(String username);
-
     @Transactional(readOnly = true)
-    User findByUsername(String username);
+    public User findByUsername(String username);
 
     public void deleteUserById(int id);
+
     @Override
     public UserDetails loadUserByUsername(String username);
 }

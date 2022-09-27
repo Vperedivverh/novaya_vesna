@@ -20,7 +20,7 @@ public class UserRestController {
 
     @GetMapping
     public ModelAndView showUser(Model model, Principal principal) {
-        model.addAttribute("user", userService.getUser(userService.getByUsername(principal.getName()).getId()));
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
         return new ModelAndView("user");
     }
 
