@@ -57,7 +57,7 @@ public class AdminRestController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id) {
+    public ResponseEntity<String> deleteUserById(@PathVariable int id) {
         userService.deleteUserById(id);
         return new ResponseEntity<>(("User was deleted."), HttpStatus.OK);
     }
